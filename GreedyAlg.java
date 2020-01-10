@@ -62,10 +62,7 @@ public class GreedyAlg
         GreedyAlgItem o6 = new GreedyAlgItem("o6", 5, 6, 0);
        
         GreedyAlgItem[] items = {o1, o2, o3, o4, o5, o6};
-        {
-            
           fractionalKnapsack(items, 20);
-
-    }
+        
 }
 }

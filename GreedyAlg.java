@@ -1,38 +1,71 @@
-import java.util.Collections;
-import java.util.ArrayList;
-//
 public class GreedyAlg
 {
-    ArrayList <GreedyAlgItem> items = new ArrayList<>();
 
+    public static void fractionalKnapsack(GreedyAlgItem items[], int WeightCap)
+    {
 
-    public void densityCompute(ArrayList <GreedyAlgItem> algItems) 
-    {   
-        for(int i=0; i < algItems.size(); i++)
-            algItems.get(i).density = (float) items.get(i).value / items.get(i).weight;
-
-        Collections.sort(algItems.density, Collections.reverseOrder()); 
+    int nOfItems = items.length;
+    
+    //calculate density
+    for(i = 0; i < nOfItems; i++) 
+        items[i].density = (float) items[i].value / items[i].weight;
+    
+    //sort by density in descending order
+    GreedyAlgItem temp;
+    for(i = 1; i < nOfItems; i++) 
+    {
+        for(j = 0; j < nOfItems - i; j++)
+        if(items[j+1].density > items[j].density) 
+        {
+            temp = items[j+1];
+            items[j+1] = items[j];
+            items[j] = temp;
+        }
     }
 
-public static void main(String[] args)
-{
-    GreedyAlgItem a = new GreedyAlgItem("a", 3, 8, 2, 0);
-    GreedyAlgItem b = new GreedyAlgItem("b", 4, 10, 4, 0);
-    GreedyAlgItem c = new GreedyAlgItem("c", 2, 12, 3, 0);
-    
-    ArrayList <GreedyAlgItem> items = new ArrayList<>();
-        items.add(a);
-        items.add(b);
-        items.add(c);
+    double weightLeft, totalWeight;
+    float value;
 
-    
-    for(GreedyAlgItem flt : items)
-        System.out.println(flt);
+    float totalValue = 0;
+
+    //checking for the weight constraint and printing the picked ones
+    for(int i = 0; i < nOfItems; i++) 
+    {
+        if(items[i].weight + totalWeight <= weightCap) 
+        {
+        totalWeight += items[i].weight;
+        totalValue += items[i].value;
+
+        System.out.println("Selected Item: " + items[i].name + " Item's weight: " + items[i].weight + " and value: " + items[i].value);
+        } 
+        else 
+        {
+        weightLeft = weightCap - totalWeight;
+        value = weightLeft * (float) items[i].density;
+
+        totalValue += value;
+
+        System.out.println("Selected Item: " + items[i].name + " Item's weight: " + items[i].weight + " and value: " + items[i].value);
+        break;
+        }
+    }
+
+    System.out.println("Total Value: " + totalValue);
+    }
+    public static void main(String[] args)
+    {
+        GreedyAlgItem o1 = new GreedyAlgItem("o1", 3, 4, 0);
+        GreedyAlgItem o2 = new GreedyAlgItem("o2", 4, 2, 0);
+        GreedyAlgItem o3 = new GreedyAlgItem("o3", 7, 5, 0);
+        GreedyAlgItem o4 = new GreedyAlgItem("o4", 3, 3, 0);
+        GreedyAlgItem o5 = new GreedyAlgItem("o5", 3, 1, 0);
+        GreedyAlgItem o6 = new GreedyAlgItem("o6", 5, 6, 0);
+       
+        GreedyAlgItem[] items = {o1, o2, o3, o4, o5, o6};
+        {
+            
+          fractionalKnapsack(items, 20);
+
+    }
 }
-
-
-
-
-    
-
 }

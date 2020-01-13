@@ -28,7 +28,7 @@ public class GreedyAlg
         float value;
 
         float totalValue = 0;
-        int weightCapacity = wC;
+    
 
         //checking for the weight constraint and printing the picked ones
         for(int i = 0; i < nOfItems; i++)

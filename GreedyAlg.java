@@ -1,21 +1,21 @@
 public class GreedyAlg
 {
 
-    public static void fractionalKnapsack(GreedyAlgItem items[], int WeightCap)
+    public static void fractionalKnapsack(GreedyAlgItem items[], int wC)
     {
 
         int nOfItems = items.length;
 
         //calculate density
-        int i, j;
-        for(i = 0; i < nOfItems; i++)
+        
+        for(int i = 0; i < nOfItems; i++)
             items[i].density = (float) items[i].value / items[i].weight;
 
         //sort by density in descending order
         GreedyAlgItem temp;
-        for(i = 1; i < nOfItems; i++)
+        for(int i = 1; i < nOfItems; i++)
         {
-            for(j = 0; j < nOfItems - i; j++)
+            for(int j = 0; j < nOfItems - i; j++)
                 if(items[j+1].density > items[j].density)
                 {
                     temp = items[j+1];
@@ -28,12 +28,12 @@ public class GreedyAlg
         float value;
 
         float totalValue = 0;
+        int weightCapacity = wC;
 
         //checking for the weight constraint and printing the picked ones
-        for(i = 0; i < nOfItems; i++)
+        for(int i = 0; i < nOfItems; i++)
         {
-            double weightCap = 0;
-            if(items[i].weight + totalWeight <= weightCap)
+            if(items[i].weight + totalWeight <= wC)
             {
                 totalWeight += items[i].weight;
                 totalValue += items[i].value;
@@ -42,7 +42,7 @@ public class GreedyAlg
             }
             else
             {
-                weightLeft = weightCap - totalWeight;
+                weightLeft = wC - totalWeight;
                 value = (float) (weightLeft * (float) items[i].density);
 
                 totalValue += value;
@@ -53,6 +53,7 @@ public class GreedyAlg
         }
 
         System.out.println("Total Value: " + totalValue);
+        
     }
     public static void main(String[] args)
     {
